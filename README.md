@@ -58,7 +58,7 @@ Nous allons maintenant porter ce petit programme pour pouvoir l'héberger au sei
 
 1. Créez un nouveau dossier local *ResizeFunction*
 2. Retournez à la page d'accueil du portail
-    - Créez une Function App (ex: *nomprenom-fa*) de type *Consumption*
+    - Créez une Function App (ex: *nomprenom-fa*) de type *Consumption* (_pas_ *Flexible Consumption*)
     - Ciblant *.NET 8 (LTS) in-process model*
     - Sur la région *France Central*
     - Système d'exploitation *Linux*
@@ -67,7 +67,7 @@ Nous allons maintenant porter ce petit programme pour pouvoir l'héberger au sei
 3. Dans l'onglet Azure de Visual Studio Code, section *FUNCTIONS* [créez un nouveau projet Azure Functions depuis Visual Studio Code](https://docs.microsoft.com/fr-fr/azure/azure-functions/create-first-function-vs-code-csharp)
     - Dans le dossier *ResizeFunction*
     - Choisissez *C#*
-    - Sélectionnez le runtime *.NET 8.0* - il doit correspondre à celui sélectionné lors de l'étape 2
+    - Sélectionnez le runtime *.NET 8.0 (LTS)* - il doit correspondre à celui sélectionné lors de l'étape 2
     - Faites bien attention et sélectionnez `HttpTrigger` (quelques secondes sont nécessaires à l'affichage). C'est ce qui permet d'exposer la fonction en tant qu'API http.    
     - Nommez votre fonction `ResizeHttpTrigger`
     - Choisissez un namespace à votre guise
