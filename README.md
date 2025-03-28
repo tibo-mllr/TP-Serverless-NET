@@ -56,8 +56,8 @@ Nous allons maintenant utiliser le package [ImageSharp](https://github.com/SixLa
 ### 4. Portage vers une Azure Function
 Nous allons maintenant porter ce petit programme pour pouvoir l'héberger au sein d'une Azure Function. Elle se déclenchera sur un appel [HttpTrigger](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob-trigger?tabs=csharp) en POST.
 
-1. Créez un nouveau dossier local *ResizeFunction*
-2. Retournez à la page d'accueil du portail
+1. Créez un nouveau dossier local (votre ordinateur ou Codespace) *ResizeFunction* 
+2. Retournez à la page d'accueil du portail Azure
     - Créez une Function App (ex: *nomprenom-fa*) de type *Consumption* (_pas_ *Flexible Consumption*)
     - Ciblant *.NET 8 (LTS) in-process model*
     - Sur la région *France Central*
@@ -72,7 +72,7 @@ Nous allons maintenant porter ce petit programme pour pouvoir l'héberger au sei
     - Nommez votre fonction `ResizeHttpTrigger`
     - Choisissez un namespace à votre guise
     - - Sélectionnez *Anonymous* comme type d'authentification
-4. Depuis le dossier *ResizeFunction*, ajoutez le package [ImageSharp](https://github.com/SixLabors/ImageSharp).
+4. Depuis le dossier local *ResizeFunction*, ajoutez le package [ImageSharp](https://github.com/SixLabors/ImageSharp).
 5. Modifiez le fichier afin de récupérer le corps (body) de la requête et le charger en tant qu'image dans ImageSharp ([aide](https://stackoverflow.com/questions/54944607/how-to-retrieve-bytes-data-from-request-body-in-azure-function-app))
     - Pour renvoyer les octets de la nouvelle image en tant que réponse à la requête, utilisez **return new FileContentResult(targetImageBytes, "image/jpeg");**
     - Ajoutez les paramètres d'URL **h** et **w** qui permettent à l'appelant de spécifier les dimensions cibles. Ne modifiez pas les noms de ces paramètres: gardez bien **w** et **h** car cela est utilisé pour la notation.
