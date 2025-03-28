@@ -93,7 +93,7 @@ _Conseil_: Veillez à ce que votre fonction soit propre avec notamment une bonne
 ### 5. Intégration avec Logic Apps
 Le web service étant désormais déployé, voyons comment le réutiliser dans un autre scénario. Nous allons pour cela créer une Logic App (également du serverless) qui surveillera le container d'un Blob Storage Account et déclenchera un appel à notre Azure Function .NET dès qu'un fichier y sera déposé.
 
-1. Depuis le [portail Azure](https://portal.azure.com), crééz une Logic App (Workflow, Consumption)
+1. Depuis le [portail Azure](https://portal.azure.com), crééz une Logic App (Workflow, Consumption/Multi-tenant)
 2. Implémentez la Logic App depuis le concepteur graphique (Designer)
     - Vous pouvez utiliser directement le connecteur natif Azure Function, ou le connecteur permettant d'effectuer des appels http (optionnel: essayez les deux). Pour passer les paramètres **w** (width, largeur) et **h** (height, hauteur), utilisez les paramètres *Requêtes* de ces connecteurs
     - Stockez la sortie de la function dans un nouveau blob situé dans un container différent du même Storage Account et nommez le nouveau blob `resized-<nom_du_fichier_source>.jpeg` (que se passerait-il si l'on stockait le nouveau fichier dans le même container que l'ancien?)
