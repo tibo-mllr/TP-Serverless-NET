@@ -102,7 +102,7 @@ Le web service étant désormais déployé, voyons comment le réutiliser dans u
 4. (optionnel) Ajoutez une condition filtrant les fichiers entrant, en s'assurant que le traitement n'ai lieu que s'ils ont pour extension **.jpg**, **.png**, ou **.bmp**.
 5. (optionnel) Le nommage préalablement choisi n'est pas toujours correct car les fichiers créés sont au format jpeg alors que les fichiers sources peuvent être dans un autre format d'image. Pour corriger cela tout en rapprochant alphabétiquement le nom du fichier source et du fichier créé, modifiez le nommage du nouveau fichier ainsi: `[nom_du_fichier_source_sans_extension]-resized.jpeg`
 
-### 6. Rendu - 4 avril 2025
+### 6. Rendu - 17 avril 2025
 Le TP sera noté et rendu de la manière suivante:
  - Par binôme ou trinôme
  - Pensez à [bien gérer les exceptions](https://learn.microsoft.com/en-us/dotnet/standard/exceptions/best-practices-for-exceptions)
