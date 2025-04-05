@@ -56,9 +56,9 @@ Nous allons maintenant utiliser le package [ImageSharp](https://github.com/SixLa
 ### 4. Portage vers une Azure Function
 Nous allons maintenant porter ce petit programme pour pouvoir l'héberger au sein d'une Azure Function. Elle se déclenchera sur un appel [HttpTrigger](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob-trigger?tabs=csharp) en POST.
 
-1. Créez un nouveau dossier local *ResizeFunction*
-2. Retournez à la page d'accueil du portail
-    - Créez une Function App (ex: *nomprenom-fa*) de type *Consumption*
+1. Créez un nouveau dossier local (votre ordinateur ou Codespace) *ResizeFunction* 
+2. Retournez à la page d'accueil du portail Azure
+    - Créez une Function App (ex: *nomprenom-fa*) de type *Consumption* (_pas_ *Flexible Consumption*)
     - Ciblant *.NET 8 (LTS) in-process model*
     - Sur la région *France Central*
     - Système d'exploitation *Linux*
@@ -67,12 +67,12 @@ Nous allons maintenant porter ce petit programme pour pouvoir l'héberger au sei
 3. Dans l'onglet Azure de Visual Studio Code, section *FUNCTIONS* [créez un nouveau projet Azure Functions depuis Visual Studio Code](https://docs.microsoft.com/fr-fr/azure/azure-functions/create-first-function-vs-code-csharp)
     - Dans le dossier *ResizeFunction*
     - Choisissez *C#*
-    - Sélectionnez le runtime *.NET 8.0* - il doit correspondre à celui sélectionné lors de l'étape 2
+    - Sélectionnez le runtime *.NET 8.0 (LTS)* - il doit correspondre à celui sélectionné lors de l'étape 2
     - Faites bien attention et sélectionnez `HttpTrigger` (quelques secondes sont nécessaires à l'affichage). C'est ce qui permet d'exposer la fonction en tant qu'API http.    
     - Nommez votre fonction `ResizeHttpTrigger`
     - Choisissez un namespace à votre guise
     - - Sélectionnez *Anonymous* comme type d'authentification
-4. Depuis le dossier *ResizeFunction*, ajoutez le package [ImageSharp](https://github.com/SixLabors/ImageSharp).
+4. Depuis le dossier local *ResizeFunction*, ajoutez le package [ImageSharp](https://github.com/SixLabors/ImageSharp).
 5. Modifiez le fichier afin de récupérer le corps (body) de la requête et le charger en tant qu'image dans ImageSharp ([aide](https://stackoverflow.com/questions/54944607/how-to-retrieve-bytes-data-from-request-body-in-azure-function-app))
     - Pour renvoyer les octets de la nouvelle image en tant que réponse à la requête, utilisez **return new FileContentResult(targetImageBytes, "image/jpeg");**
     - Ajoutez les paramètres d'URL **h** et **w** qui permettent à l'appelant de spécifier les dimensions cibles. Ne modifiez pas les noms de ces paramètres: gardez bien **w** et **h** car cela est utilisé pour la notation.
@@ -93,7 +93,7 @@ _Conseil_: Veillez à ce que votre fonction soit propre avec notamment une bonne
 ### 5. Intégration avec Logic Apps
 Le web service étant désormais déployé, voyons comment le réutiliser dans un autre scénario. Nous allons pour cela créer une Logic App (également du serverless) qui surveillera le container d'un Blob Storage Account et déclenchera un appel à notre Azure Function .NET dès qu'un fichier y sera déposé.
 
-1. Depuis le [portail Azure](https://portal.azure.com), crééz une Logic App (Workflow, Consumption)
+1. Depuis le [portail Azure](https://portal.azure.com), crééz une Logic App (Workflow, Consumption/Multi-tenant)
 2. Implémentez la Logic App depuis le concepteur graphique (Designer)
     - Vous pouvez utiliser directement le connecteur natif Azure Function, ou le connecteur permettant d'effectuer des appels http (optionnel: essayez les deux). Pour passer les paramètres **w** (width, largeur) et **h** (height, hauteur), utilisez les paramètres *Requêtes* de ces connecteurs
     - Stockez la sortie de la function dans un nouveau blob situé dans un container différent du même Storage Account et nommez le nouveau blob `resized-<nom_du_fichier_source>.jpeg` (que se passerait-il si l'on stockait le nouveau fichier dans le même container que l'ancien?)
@@ -102,7 +102,7 @@ Le web service étant désormais déployé, voyons comment le réutiliser dans u
 4. (optionnel) Ajoutez une condition filtrant les fichiers entrant, en s'assurant que le traitement n'ai lieu que s'ils ont pour extension **.jpg**, **.png**, ou **.bmp**.
 5. (optionnel) Le nommage préalablement choisi n'est pas toujours correct car les fichiers créés sont au format jpeg alors que les fichiers sources peuvent être dans un autre format d'image. Pour corriger cela tout en rapprochant alphabétiquement le nom du fichier source et du fichier créé, modifiez le nommage du nouveau fichier ainsi: `[nom_du_fichier_source_sans_extension]-resized.jpeg`
 
-### 6. Rendu - 4 avril 2025
+### 6. Rendu - 17 avril 2025
 Le TP sera noté et rendu de la manière suivante:
  - Par binôme ou trinôme
  - Pensez à [bien gérer les exceptions](https://learn.microsoft.com/en-us/dotnet/standard/exceptions/best-practices-for-exceptions)
