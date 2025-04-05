@@ -10,11 +10,11 @@ using Newtonsoft.Json;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 
-namespace Company.Function
+namespace OnReessaie
 {
-    public static class ResizeHttpTrigger
+    public static class HttpResizeBis
     {
-        [FunctionName("ResizeHttpTrigger")]
+        [FunctionName("HttpResizeBis")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
             ILogger log)
@@ -72,5 +72,3 @@ namespace Company.Function
         }
     }
 }
-
-
